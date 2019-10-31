@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "description": "open layers testing environment",
   "main": "index.js",
-  "dependencies": {
-    "ol": "^6.1.0"
-  },
-  "devDependencies": {
-    "parcel-bundler": "^1.12.4"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel index.html",
@@ -16,12 +10,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cole-fields/open-layers.git"
+    "url": "git+https://cole-fields@github.com/cole-fields/open-layers.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cole-fields/open-layers/issues"
   },
-  "homepage": "https://github.com/cole-fields/open-layers#readme"
+  "homepage": "https://github.com/cole-fields/open-layers#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "ol": "^6.1.0"
+  }
 }
