@@ -13,7 +13,12 @@ const map = new Map({
   layers: [
     new TileLayer({
       source: new OSM()
-    })
+    }),
+    new OpenLayers.Layer.WMS(
+      "Layer Reefs",
+      "http://34.217.47.31:8080/geoserver/wms/cite",
+      {layers: 'cite:reefs'}
+    )
   ],
   view: new View({
     center: bcWebMercator,
