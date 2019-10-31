@@ -11,7 +11,7 @@ const map = new Map({
     })
   ],
   view: new View({
-    center: [48.425220, -123.388672],
-    zoom: 20
+    center: [48.475821, -123.368656],
+    zoom: 10
   })
 });
