@@ -3,11 +3,6 @@ import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 
-// latlong to web mercator
-const lonlat = [-77.036667, 38.895];
-const webMercator = fromLonLat(lonlat);
-
-// map 
 const map = new Map({
   target: 'map',
   layers: [
@@ -16,7 +11,8 @@ const map = new Map({
     })
   ],
   view: new View({
-    center: webMercator,
+    projection: 'EPSG:4326'
+    center: [49.334162, -119.564104],
     zoom: 8
   })
 });
