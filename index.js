@@ -2,6 +2,11 @@ import 'ol/ol.css';
 import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
+import {fromLonLat} from 'ol/proj'; // the fromLonLat function
+
+const bc = [-119.573568, 49.344938]; // longitude first, then latitude
+// since we are using OSM, we have to transform the coordinates...
+const bcWebMercator = fromLonLat(bc);
 
 const map = new Map({
   target: 'map',
@@ -11,8 +16,7 @@ const map = new Map({
     })
   ],
   view: new View({
-    projection: 'EPSG:3005',
-    center: [1467511.717, 501023.962],
+    center: bcWebMercator,
     zoom: 12
   })
 });
