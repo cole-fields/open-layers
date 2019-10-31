@@ -11,7 +11,7 @@ const map = new Map({
     })
   ],
   view: new View({
-    projection: 'EPSG:4326'
+    projection: 'EPSG:4326',
     center: [49.334162, -119.564104],
     zoom: 8
   })
