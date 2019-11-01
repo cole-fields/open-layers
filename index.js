@@ -15,7 +15,13 @@ var map = new Map({
     // openstreetmap base TileLayer
     new TileLayer({
       source: new OSM()
-    })
+    }),
+    new OpenLayers.Layer.WMS(
+      "Sponge Reefs", "http://52.32.75.54:8080/geoserver/cite/wms",
+      {
+        layers: 'cite:reefs'
+      }
+    )
   ],
   view: new View({
     projection: 'EPSG:4326',
@@ -23,14 +29,3 @@ var map = new Map({
     zoom: 12
   })
 });
-
-// specify WMS reefs layer from geoserver
-var reefs = new OpenLayers.Layer.WMS(
-                "Sponge Reefs", "http://52.32.75.54:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap",
-                {
-                        layers: 'cite:reefs',
-                },
-                {singleTile: true, ratio: 1}
-);
-
-map.addLayer(reefs);
