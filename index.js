@@ -5,22 +5,10 @@ import XYZ from 'ol/source/XYZ';
 import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import DragAndDrop from 'ol/interaction/DragAndDrop';
-
+import {bbox as bboxStrategy} from 'ol/loadingstrategy';
 
 // longitude first, then latitude
 var bc = [-123.375320, 49.421197];
-
-// map
-var map = new Map({
-  layers: [],
-  target: 'map',
-  view: new View({
-    projection: 'EPSG:4326',
-    center: bc,
-    zoom: 10
-  })
-});
 
 // base layer
 var base = new TileLayer({
@@ -30,15 +18,26 @@ var base = new TileLayer({
 });
 map.addLayer(base);
 
-// drag and drop feature
-var source = new VectorSource();
-var layer = new VectorLayer({
-  source: source
+var reefs = new VectorLayer({
+  source: new VectorSource({
+    format: new GeoJSON(),
+    url: function(extent) {
+      return 'http://52.32.75.54:8080/geoserver/cite/ows?service=WFS&' +
+      'version=1.0.0&request=GetFeature&typeName=cite:reefs&' +
+      'maxFeatures=50&outputFormat=json&srsname=EPSG:4326&' +
+      'bbox=' + extent.join(',') + ',EPSG:4326';
+    },
+    strategy: ol.loadingstrategy.bbox
+  })
 });
-map.addLayer(layer);
 
-// map drag and drop interaction
-map.addInteraction(new DragAndDrop({
-  source: source,
-  formatConstructors: [GeoJSON]
-}));
+// map
+var map = new Map({
+  layers: [base, reefs],
+  target: 'map',
+  view: new View({
+    projection: 'EPSG:4326',
+    center: bc,
+    zoom: 10
+  })
+});
