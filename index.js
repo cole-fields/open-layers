@@ -11,12 +11,12 @@ const bc = [-119.573568, 49.344938];
 const bcWebMercator = fromLonLat(bc);
 
 // base OSM layer
-const base new TileLayer({
+const base = new TileLayer({
   source: new OSM()
 });
 
 // reefs WMS layer from geoserver
-const reefs new OpenLayers.Layer.WMS(
+const reefs = new OpenLayers.Layer.WMS(
   "Layer Reefs",
   "http://34.217.47.31:8080/geoserver/cite/cite",
   {layers: 'cite:reefs'}
