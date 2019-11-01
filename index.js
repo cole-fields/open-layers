@@ -16,11 +16,6 @@ const map = new Map({
     // openstreetmap base TileLayer
     new TileLayer({
       source: new OSM()
-    }),
-    // sponge reefs WMS layer from geoserver
-    new OpenLayers.Layer.WMS("Sponge Reefs", "http://52.32.75.54:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap",
-    {
-      layers: 'cite:reefs'
     })
   ],
   view: new View({
