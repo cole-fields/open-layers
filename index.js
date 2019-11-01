@@ -16,7 +16,7 @@ var layers = [
         source: new XYZ({
           url: 'http://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
         })
-      })
+      }),
   new TileLayer({
     extent: [-123.469779968262, 49.3335990905762, -123.243202209473, 49.4680480957031],
     source: new TileWMS({
