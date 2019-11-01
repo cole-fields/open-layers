@@ -11,18 +11,9 @@ import DragAndDrop from 'ol/interaction/DragAndDrop';
 // longitude first, then latitude
 var bc = [-123.375320, 49.421197];
 
-// layers
-var layers = [
-  new TileLayer({
-        source: new XYZ({
-          url: 'http://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
-        })
-      }),
-];
-
 // map
 var map = new Map({
-  layers: layers,
+  layers: [],
   target: 'map',
   view: new View({
     projection: 'EPSG:4326',
@@ -31,12 +22,22 @@ var map = new Map({
   })
 });
 
+// base layer
+var base = new TileLayer({
+  source: new XYZ({
+    url: 'http://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+  })
+});
+map.addLayer(base);
+
 // drag and drop feature
 var source = new VectorSource();
-var reefs = new VectorLayer({
+var layer = new VectorLayer({
   source: source
 });
-map.addLayer(reefs);
+map.addLayer(layer);
+
+// map drag and drop interaction
 map.addInteraction(new DragAndDrop({
   source: source,
   formatConstructors: [GeoJSON]
