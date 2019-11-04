@@ -44,7 +44,7 @@ var map = new Map({
   layers: [base, reef],
   target: 'map',
   view: new View({
-    projection: 'EPSG:4326',
+    projection: 'EPSG:3857',
     center: bc,
     zoom: 11
   })
