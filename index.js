@@ -1,12 +1,10 @@
 import 'ol/ol.css';
-import {Map, View} from 'ol';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import ImageLayer from 'ol/layer/Image';
+import ImageWMS from 'ol/source/ImageWMS';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
-import GeoJSON from 'ol/format/GeoJSON';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
-import {bbox as bboxStrategy} from 'ol/loadingstrategy';
-import {Stroke, Style} from 'ol/style';
 import {fromLonLat} from 'ol/proj';
 
 // longitude first, then latitude
@@ -18,27 +16,14 @@ var base = new TileLayer({
   source: new OSM()
 });
 
-// wfs layer pulling from geoserver
-var reefSource = new VectorSource({
-  format: new GeoJSON(),
-  url: function(extent) {
-    return 'http://34.217.108.105:8080/geoserver/cite/ows?service=WFS&' +
-    'version=1.0.0&request=GetFeature&typeName=cite:reefs&maxFeatures=50&' +
-    'outputFormat=application%2Fjson&srsname=EPSG:4326&' +
-    'bbox=' + extent.join(',') + ',EPSG:4326';
-  },
-  strategy: bboxStrategy
+var wmsSource = new ImageWMS({
+  url: 'https://ahocevar.com/geoserver/wms',
+  params: {'LAYERS': 'cite:reefs'},
+  serverType: 'geoserver'
 });
 
-// define vector layer using VectorSource and define style
-var reef = new VectorLayer({
-  source: reefSource,
-  style: new Style({
-    stroke: new Stroke({
-      color: 'rgba(0, 0, 255, 1.0)',
-      width: 2
-    })
-  })
+var reef = new ImageLayer({
+  source: wmsSource
 });
 
 // map
