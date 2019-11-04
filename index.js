@@ -14,7 +14,6 @@ var bcWebMercator = fromLonLat(bc);
 // base layer
 var base = new TileLayer({
   source: new OSM()
-  })
 });
 
 // wfs layer pulling from geoserver
