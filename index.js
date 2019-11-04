@@ -6,6 +6,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {bbox as bboxStrategy} from 'ol/loadingstrategy';
+import {Stroke, Style} from 'ol/style';
 
 // longitude first, then latitude
 var bc = [-123.375320, 49.421197];
@@ -16,28 +17,35 @@ var base = new TileLayer({
     url: 'http://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
   })
 });
-map.addLayer(base);
 
-var reefs = new VectorLayer({
-  source: new VectorSource({
-    format: new GeoJSON(),
-    url: function(extent) {
-      return 'http://52.32.75.54:8080/geoserver/cite/ows?service=WFS&' +
-      'version=1.0.0&request=GetFeature&typeName=cite:reefs&' +
-      'maxFeatures=50&outputFormat=json&srsname=EPSG:4326&' +
-      'bbox=' + extent.join(',') + ',EPSG:4326';
-    },
-    strategy: ol.loadingstrategy.bbox
+var reefSource = new VectorSource({
+  format: new GeoJSON(),
+  url: function(extent) {
+    return 'http://34.217.108.105:8080/geoserver/cite/ows?service=WFS&' +
+    'version=1.0.0&request=GetFeature&typeName=cite:reefs&maxFeatures=50&' +
+    'outputFormat=application%2Fjson&srsname=EPSG:4326&' +
+    'bbox=' + extent.join(',') + ',EPSG:4326';
+  },
+  strategy: bboxStrategy
+});
+
+var reef = new VectorLayer({
+  source: reefSource,
+  style: new Style({
+    stroke: new Stroke({
+      color: 'rgba(0, 0, 255, 1.0)',
+      width: 2
+    })
   })
 });
 
 // map
 var map = new Map({
-  layers: [base, reefs],
+  layers: [base, reef],
   target: 'map',
   view: new View({
     projection: 'EPSG:4326',
     center: bc,
-    zoom: 10
+    zoom: 11
   })
 });
