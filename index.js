@@ -1,6 +1,7 @@
 import 'ol/ol.css';
 import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
 import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -11,6 +12,7 @@ import {fromLonLat} from 'ol/proj';
 // longitude first, then latitude
 var bc = [-123.375320, 49.421197];
 var bcWebMercator = fromLonLat(bc);
+
 // base layer
 var base = new TileLayer({
   source: new OSM()
