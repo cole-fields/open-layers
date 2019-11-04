@@ -6,10 +6,11 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import {bbox as bboxStrategy} from 'ol/loadingstrategy';
 import {Stroke, Style} from 'ol/style';
+import {fromLonLat} from 'ol/proj';
 
 // longitude first, then latitude
 var bc = [-123.375320, 49.421197];
-
+var bcWebMercator = fromLonLat(bc);
 // base layer
 var base = new TileLayer({
   source: new OSM()
@@ -45,7 +46,7 @@ var map = new Map({
   target: 'map',
   view: new View({
     projection: 'EPSG:3857',
-    center: bc,
+    center: bcWebMercator,
     zoom: 11
   })
 });
