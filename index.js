@@ -1,7 +1,6 @@
 import 'ol/ol.css';
 import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
-import XYZ from 'ol/source/XYZ';
 import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -13,11 +12,11 @@ var bc = [-123.375320, 49.421197];
 
 // base layer
 var base = new TileLayer({
-  source: new XYZ({
-    url: 'http://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+  source: new OSM()
   })
 });
 
+// wfs layer pulling from geoserver
 var reefSource = new VectorSource({
   format: new GeoJSON(),
   url: function(extent) {
@@ -29,6 +28,7 @@ var reefSource = new VectorSource({
   strategy: bboxStrategy
 });
 
+// define vector layer using VectorSource and define style
 var reef = new VectorLayer({
   source: reefSource,
   style: new Style({
