@@ -48,6 +48,6 @@ var map = new Map({
   view: new View({
     projection: 'EPSG:3857',
     center: bcWebMercator,
-    zoom: 11
+    zoom: 10
   })
 });
